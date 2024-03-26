@@ -1,19 +1,20 @@
-import { allSnippets } from "contentlayer/generated";
-import { Snippet } from "@/components/snippet";
-import { TimePickerWrapper } from "@/components/time-picker/time-picker-wrapper";
+import { allSnippets } from "contentlayer/generated"
+import { Snippet } from "@/components/snippet"
+import { TimePickerWrapper } from "@/components/time-picker/time-picker-wrapper"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { ModeToggle } from "@/components/theme/toggle-mode";
-import { Github, Globe, Twitter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { TimePicker12HourWrapper } from "@/components/time-picker/time-picker-12hour-wrapper";
-import { DateTimePickerForm } from "@/components/time-picker/date-time-picker-form";
+} from "@/components/ui/accordion"
+import { ModeToggle } from "@/components/theme/toggle-mode"
+import { Github, Globe, Twitter } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { TimePicker12HourWrapper } from "@/components/time-picker/time-picker-12hour-wrapper"
+import { DateTimePickerForm } from "@/components/time-picker/date-time-picker-form"
+import { TimeRangeWrapper } from "@/components/time-picker/time-range-wrapper"
 
-const snippets = allSnippets.sort((a, b) => a.order - b.order);
+const snippets = allSnippets.sort((a, b) => a.order - b.order)
 
 export default function Home() {
   return (
@@ -59,6 +60,7 @@ export default function Home() {
                 <h3 className="text-xl font-cal">Demo</h3>
                 <TimePickerWrapper />
                 <TimePicker12HourWrapper />
+                <TimeRangeWrapper />
               </div>
               <div className="pt-4 flex flex-col gap-3">
                 <ul className="list-disc list-outside ml-5 marker:text-muted-foreground space-y-2 text-sm">
@@ -166,5 +168,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  );
+  )
 }
