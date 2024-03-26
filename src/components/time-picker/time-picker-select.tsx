@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { min } from "date-fns"
 
 export interface TimePickerSelectProps {
   picker: TimePickerType
@@ -27,14 +28,25 @@ const TimePickerSelect: React.FC<TimePickerSelectProps> = ({
   const [selectedValue, setSelectedValue] = useState<string>("")
 
   useEffect(() => {
-    let minLimit = 0
+    const currentHour = date.getHours()
+    const currentMinute = date.getMinutes()
+    const minHour = minTime ? minTime.getHours() : 0
+    const minMinute = minTime ? minTime.getMinutes() : 0
 
-    if (minTime) {
-      minLimit = picker === "hours" ? minTime.getHours() : minTime.getMinutes()
+    if (picker === "hours" && currentHour < minHour) {
+      setSelectedValue(minHour.toString())
+    } else if (
+      picker === "minutes" &&
+      currentHour === minHour &&
+      currentMinute < minMinute
+    ) {
+      setSelectedValue(minMinute.toString())
+    } else {
+      setSelectedValue(
+        picker === "hours" ? currentHour.toString() : currentMinute.toString()
+      )
     }
-
-    setSelectedValue(minLimit.toString())
-  }, [picker, minTime])
+  }, [date, minTime, picker])
 
   const handleSelectChange = (value: string) => {
     setSelectedValue(value)
@@ -51,10 +63,11 @@ const TimePickerSelect: React.FC<TimePickerSelectProps> = ({
     let maxLimit = picker === "hours" ? 23 : 59
 
     if (minTime) {
-      minLimit = picker === "hours" ? minTime.getHours() : minTime.getMinutes()
-
-      if (date.getHours() > minTime.getHours()) {
-        minLimit = picker === "minutes" ? 0 : minTime.getHours()
+      if (picker === "hours") {
+        minLimit = minTime.getHours()
+      } else {
+        minLimit =
+          date.getHours() === minTime.getHours() ? minTime.getMinutes() : 0
       }
     }
 
