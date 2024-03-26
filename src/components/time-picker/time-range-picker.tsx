@@ -63,17 +63,20 @@ export function TimeRangePicker({
   return (
     <div className="flex flex-col justify-center gap-3">
       <div className="flex flex-col gap-2 text-center">
-        <span>Start Time</span>
+        <Label className="text-xs">Start Time</Label>
         {renderStartTimePicker()}
       </div>
-      <div className="flex justify-center">
-        <Clock className="w-4 h-4" />
-      </div>
+
       {startTime && (
-        <div className="flex flex-col gap-2 text-center">
-          <span>End Time</span>
-          {renderEndTimePicker()}
-        </div>
+        <>
+          <div className="flex justify-center">
+            <Clock className="w-4 h-4" />
+          </div>
+          <div className="flex flex-col gap-2 text-center">
+            <Label className="text-xs">End Time</Label>
+            {renderEndTimePicker()}
+          </div>
+        </>
       )}
     </div>
   )
