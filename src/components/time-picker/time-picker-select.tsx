@@ -28,7 +28,6 @@ const TimePickerSelect: React.FC<TimePickerSelectProps> = ({
 
   useEffect(() => {
     let minLimit = 0
-    let maxLimit = picker === "hours" ? 23 : 59
 
     if (minTime) {
       minLimit = picker === "hours" ? minTime.getHours() : minTime.getMinutes()
@@ -53,6 +52,10 @@ const TimePickerSelect: React.FC<TimePickerSelectProps> = ({
 
     if (minTime) {
       minLimit = picker === "hours" ? minTime.getHours() : minTime.getMinutes()
+
+      if (date.getHours() > minTime.getHours()) {
+        minLimit = picker === "minutes" ? 0 : minTime.getHours()
+      }
     }
 
     for (let i = minLimit; i <= maxLimit; i++) {
