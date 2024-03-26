@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import React, { useEffect } from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon, Clock } from "lucide-react"
 
@@ -18,6 +18,13 @@ export function TimeRangeDemo() {
   const [date, setDate] = React.useState<Date>()
   const [startTime, setStartTime] = React.useState<Date>()
   const [endTime, setEndTime] = React.useState<Date>()
+
+  useEffect(() => {
+    // if endTime is earlier than startTime, set endTime to startTime
+    if (startTime && endTime && endTime < startTime) {
+      setEndTime(startTime)
+    }
+  }, [endTime])
 
   return (
     <Popover>
